@@ -3,3 +3,5 @@ env:
     secret: NOTION_KEY
   - variable: NOTION_PAGE_ID
     secret: NOTION_PAGE_ID
+  - variable: NEXT_PUBLIC_API_URL
+    value: https://tempmail-api-219946631237.asia-southeast1.run.app
