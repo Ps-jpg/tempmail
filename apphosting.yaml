@@ -1,0 +1,5 @@
+env:
+  - variable: NOTION_KEY
+    secret: NOTION_KEY
+  - variable: NOTION_PAGE_ID
+    secret: NOTION_PAGE_ID
