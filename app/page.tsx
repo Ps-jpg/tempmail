@@ -17,10 +17,10 @@ export default function Home() {
       <div className="flex-1">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-4 dark:text-white text-gray-900">
+            <h1 className="text-5xl font-bold mb-4 text-white">
               TempusMail
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+            <p className="text-xl text-white">
               Generate temporary email addresses instantly
             </p>
           </div>
