@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { getApiEndpoint } from '@/lib/api'
 
 interface Email {
   id: string
@@ -47,7 +48,7 @@ export default function Inbox({ email, token }: InboxProps) {
     setError(null)
 
     try {
-      const response = await fetch(`/api/get-emails?token=${token}`)
+      const response = await fetch(getApiEndpoint(`/api/get-emails?token=${token}`))
       
       if (!response.ok) {
         throw new Error('Failed to fetch emails')
@@ -76,7 +77,7 @@ export default function Inbox({ email, token }: InboxProps) {
   const fetchFullEmail = async (emailId: string) => {
     setLoadingFullEmail(true)
     try {
-      const response = await fetch(`/api/get-message/${emailId}?token=${token}`)
+      const response = await fetch(getApiEndpoint(`/api/get-message/${emailId}?token=${token}`))
       
       if (!response.ok) {
         throw new Error('Failed to fetch full message')

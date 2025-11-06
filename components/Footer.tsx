@@ -1,11 +1,8 @@
 'use client'
 
-export default function Footer() {
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    alert('Page Under Construction')
-  }
+import Link from 'next/link'
 
+export default function Footer() {
   return (
     <footer className="bg-gray-900 dark:bg-black text-gray-300 py-12 mt-auto">
       <div className="container mx-auto px-4">
@@ -26,19 +23,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   API
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -47,19 +44,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Careers
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -68,19 +65,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={handleLinkClick} className="text-sm hover:text-white transition-colors">
+                <Link href="/under-construction" className="text-sm hover:text-white transition-colors">
                   Cookie Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

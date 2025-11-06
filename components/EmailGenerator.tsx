@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { getApiEndpoint } from '@/lib/api'
 
 interface EmailGeneratorProps {
   onEmailGenerated: (email: string, token: string) => void
@@ -15,7 +16,7 @@ export default function EmailGenerator({ onEmailGenerated }: EmailGeneratorProps
     setError(null)
 
     try {
-      const response = await fetch('/api/generate-email', {
+      const response = await fetch(getApiEndpoint('/api/generate-email'), {
         method: 'POST',
       })
 

@@ -1,0 +1,38 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/tempmail-api', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/tempmail-api']
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'tempmail-api'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/tempmail-api'
+      - '--region'
+      - 'asia-southeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--memory'
+      - '512Mi'
+      - '--cpu'
+      - '1'
+      - '--set-env-vars'
+      - 'FRONTEND_URL=https://tempmail--tempmail-8f1e2.asia-southeast1.hosted.app'
+
+images:
+  - 'gcr.io/$PROJECT_ID/tempmail-api'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
+

@@ -9,7 +9,26 @@ const { Client } = require('@notionhq/client')
 const app = express()
 const PORT = process.env.PORT || 3001
 
-app.use(cors())
+// CORS configuration - allow frontend domain
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:3000',
+  'https://tempmail--tempmail-8f1e2.asia-southeast1.hosted.app',
+  'https://tempmail-8f1e2.web.app'
+].filter(Boolean)
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+}))
 app.use(express.json())
 
 // Mail.tm API base URL (per official documentation: https://docs.mail.tm/)

@@ -50,16 +50,20 @@ TempusMail is a replica of the TempusMail.com homepage featuring:
 
    Create a `.env.local` file in the root directory:
    ```env
-   NOTION_TOKEN=your_notion_integration_token
-   NOTION_DATABASE_ID=your_notion_database_id
+   # For local development, point to Express server
+   NEXT_PUBLIC_API_URL=http://localhost:3001
    ```
 
-   For Firebase App Hosting, these will be set in the Firebase console.
-
+   For the Express server, create a `.env` file:
+   ```env
+   NOTION_KEY=your_notion_integration_token
+   NOTION_PAGE_ID=your_notion_database_id
+   FRONTEND_URL=http://localhost:3000
+   ```
 
 4. **Run the development server**
 
-   Start the backend server:
+   Start the Express backend server:
    ```bash
    npm run server
    ```
@@ -79,7 +83,67 @@ npm run build
 npm start
 ```
 
-## Firebase App Hosting Deployment
+## Deployment
+
+### Deploy Express Backend to Cloud Run
+
+1. **Install Google Cloud SDK**
+   ```bash
+   # Follow instructions at: https://cloud.google.com/sdk/docs/install
+   ```
+
+2. **Authenticate and set project**
+   ```bash
+   gcloud auth login
+   gcloud config set project tempmail-8f1e2
+   ```
+
+3. **Enable required APIs**
+   ```bash
+   gcloud services enable cloudbuild.googleapis.com
+   gcloud services enable run.googleapis.com
+   gcloud services enable containerregistry.googleapis.com
+   ```
+
+4. **Set environment variables for secrets**
+   ```bash
+   # Get your Notion credentials
+   export NOTION_KEY="your_notion_token"
+   export NOTION_PAGE_ID="your_database_id"
+   ```
+
+5. **Deploy to Cloud Run**
+   ```bash
+   # Option 1: Using the deployment script
+   chmod +x deploy-cloudrun.sh
+   ./deploy-cloudrun.sh
+
+   # Option 2: Manual deployment
+   gcloud builds submit --tag gcr.io/tempmail-8f1e2/tempmail-api
+   gcloud run deploy tempmail-api \
+     --image gcr.io/tempmail-8f1e2/tempmail-api \
+     --platform managed \
+     --region asia-southeast1 \
+     --allow-unauthenticated \
+     --set-env-vars "NOTION_KEY=${NOTION_KEY},NOTION_PAGE_ID=${NOTION_PAGE_ID},FRONTEND_URL=https://tempmail--tempmail-8f1e2.asia-southeast1.hosted.app" \
+     --port 8080
+   ```
+
+6. **Get your Cloud Run service URL**
+   ```bash
+   gcloud run services describe tempmail-api --region asia-southeast1 --format 'value(status.url)'
+   ```
+
+7. **Update frontend environment variable**
+   - Set `NEXT_PUBLIC_API_URL` in Firebase App Hosting to your Cloud Run URL
+   - Or add it to `apphosting.yaml`:
+     ```yaml
+     env:
+       - variable: NEXT_PUBLIC_API_URL
+         value: https://tempmail-api-xxxxx-xx.a.run.app
+     ```
+
+### Deploy Next.js Frontend to Firebase App Hosting
 
 1. **Install Firebase CLI**
    ```bash
@@ -91,20 +155,13 @@ npm start
    firebase login
    ```
 
-3. **Initialize Firebase App Hosting**
-   ```bash
-   firebase init apphosting
-   ```
+3. **Set environment variable for API URL**
+   - In Firebase Console > App Hosting > Settings > Environment Variables
+   - Add `NEXT_PUBLIC_API_URL` with your Cloud Run service URL
 
-4. **Set environment variables in Firebase Console**
-   - Go to Firebase Console > App Hosting > Your App > Environment Variables
-   - Add:
-     - `NOTION_TOKEN`: Your Notion integration token
-     - `NOTION_DATABASE_ID`: Your Notion database ID
-
-5. **Deploy**
+4. **Deploy**
    ```bash
-   firebase deploy --only apphosting
+   git push origin main  # App Hosting auto-deploys on push
    ```
 
 ## Project Structure
@@ -125,7 +182,13 @@ tempmail/
 │   └── ThemeProvider.tsx  # Theme context provider
 ├── server/                # Express.js backend
 │   └── index.js           # API server
+├── lib/                   # Utility functions
+│   └── api.ts             # API URL helper
 ├── public/                # Static assets
+├── Dockerfile             # Docker config for Cloud Run
+├── .dockerignore          # Docker ignore file
+├── cloudbuild.yaml        # Cloud Build config
+├── deploy-cloudrun.sh     # Cloud Run deployment script
 ├── package.json           # Dependencies
 ├── next.config.js         # Next.js configuration
 ├── tailwind.config.ts     # Tailwind CSS configuration
