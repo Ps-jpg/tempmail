@@ -40,3 +40,8 @@ next-env.d.ts
 firebase-debug.log
 firebase-debug.*.log
 
+# notrequired
+.DEPLOYMENT_INSTRUCTIONS.md
+.NOTION_SETUP.md
+.FIREBASE_DEPLOY.md
+
