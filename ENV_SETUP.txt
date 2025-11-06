@@ -1,8 +1,0 @@
-# COPY THIS TO YOUR .env FILE IN THE ROOT DIRECTORY
-
-# Database ID from: https://www.notion.so/2a267c1dc03981278a20d65920c30e3c
-# Use the ID BEFORE the ?v= parameter
-
-
-# The database ID is: 2a267c1dc03981278a20d65920c30e3c
-# (NOT the page ID: 2a267c1dc0398156aba1d1c05a452064)

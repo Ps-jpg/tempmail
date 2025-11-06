@@ -14,7 +14,7 @@ TempusMail is a replica of the TempusMail.com homepage featuring:
 
 ## Live Deployment
 
-[Firebase App Hosting URL will be added after deployment]
+   https://tempmail--tempmail-8f1e2.asia-southeast1.hosted.app/
 
 ## Tech Stack
 
@@ -56,16 +56,8 @@ TempusMail is a replica of the TempusMail.com homepage featuring:
 
    For Firebase App Hosting, these will be set in the Firebase console.
 
-4. **Set up Notion Integration**
 
-   - Go to [Notion Integrations](https://www.notion.so/my-integrations)
-   - Create a new integration
-   - Copy the integration token
-   - Duplicate the [TempusMail Blog](https://github.com/tempusmail/TempusMail_Blog) to your Notion workspace
-   - Share the database with your integration
-   - Copy the database ID from the Notion URL
-
-5. **Run the development server**
+4. **Run the development server**
 
    Start the backend server:
    ```bash
@@ -216,11 +208,4 @@ To test email reception:
 - Clear browser cache and localStorage
 - Check browser console for errors
 
-## License
-
-This project is created for assessment purposes.
-
-## Contact
-
-For questions or issues, please contact: team@indiancapital.in
 
